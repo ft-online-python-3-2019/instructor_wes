@@ -25,7 +25,24 @@ def create(req):
     return redirect('lectures:index')
 
 def edit(req, lecture_id):
-    pass
+    context = {
+        'course': Lecture.objects.get(id=lecture_id)
+    }
+    return render(req, "lectures/edit.html", context)
+
+def update(req, lecture_id):
+    errors = Lecture.objects.validate(req.POST)
+    if errors:
+        for error in errors:
+            messages.error(req, error)
+        return redirect("/" + lecture_id + "/edit")
+    else:
+        Lecture.objects.easy_update(req.POST, lecture_id)
+    return redirect('lectures:index')
+    # return redirect(f"/{lecture_id}/edit")
+    # return redirect("lectures:edit", lecture_id=lecture_id)
 
 def destroy(req, lecture_id):
-    pass
+    lecture = Lecture.objects.get(id=lecture_id)
+    lecture.delete()
+    return redirect('lectures:index')

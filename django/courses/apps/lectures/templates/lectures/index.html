@@ -47,8 +47,8 @@
             <td>{{ course.description }}</td>
             <td>{{ course.created_at }}</td>
             <td>
-              <a href="#">remove</a>
-              <a href="#">edit</a>
+              <a href="/{{ course.id }}/delete">remove</a>
+              <a href="/{{ course.id }}/edit">edit</a>
               <a href="#">comment</a>
             </td>
           </tr>

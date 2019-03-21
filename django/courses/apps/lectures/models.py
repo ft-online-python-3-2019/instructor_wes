@@ -15,6 +15,12 @@ class LectureManager(models.Manager):
             description=form['description']
         )
 
+    def easy_update(self, form, lecture_id):
+        lecture = Lecture.objects.get(id=lecture_id)
+        lecture.name = form['name']
+        lecture.description = form['description']
+        lecture.save()
+
 class Lecture(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
